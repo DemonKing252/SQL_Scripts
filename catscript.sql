@@ -1,0 +1,7 @@
+USE cats;
+CREATE TABLE cat(
+	id INT AUTO_INCREMENT KEY,
+	name CHAR(40) NOT NULL,
+    breed CHAR(40) NOT NULL,
+    age INT NOT NULL
+);
