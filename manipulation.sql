@@ -41,7 +41,13 @@ USE tv_db;
 -- FROM reviewers
 -- LEFT OUTER JOIN reviews ON reviewers.id = reviews.reviewer_id
 -- GROUP BY first_name, last_name;
-SELECT title, rating, CONCAT(first_name, ' ', last_name) AS reviewer
-FROM series 
-INNER JOIN reviews ON reviews.series_id = series.id
-INNER JOIN reviewers ON reviews.reviewer_id = reviewers.id;
+-- SELECT title, rating, CONCAT(first_name, ' ', last_name) AS reviewer
+-- FROM series 
+-- INNER JOIN reviews ON reviews.series_id = series.id
+-- INNER JOIN reviewers ON reviews.reviewer_id = reviewers.id;
+
+CREATE VIEW full_review AS
+SELECT first_name, last_name, AVG(rating) AS rating, AVG(released_year) AS released_year FROM reviews
+LEFT OUTER JOIN reviewers ON reviews.reviewer_id=reviewers.id 
+LEFT OUTER JOIN series ON reviews.series_id=series.id
+GROUP BY first_name, last_name ORDER BY first_name, last_name;
