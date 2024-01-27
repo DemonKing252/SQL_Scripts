@@ -1,3 +1,4 @@
+-- USE customers;
 -- CREATE TABLE employees (
 --     emp_no INT PRIMARY KEY AUTO_INCREMENT,
 --     department VARCHAR(20),
@@ -27,6 +28,8 @@
 -- ('customer service', 56000),
 -- ('customer service', 55000);
 
+-- ALTER TABLE employees RENAME COLUMN department TO dept;
+
 -- SELECT * FROM employees;
 -- SELECT emp_no, dept, salary, 
 -- SUM(salary) OVER(PARTITION BY dept) AS partitioned_dept,
@@ -36,10 +39,15 @@
 -- SUM(salary) OVER(PARTITION BY dept ORDER BY salary) AS rolling_salary, 
 -- SUM(salary) OVER(PARTITION BY dept ORDER BY dept) AS total_salary
 -- FROM employees;
-SELECT 
-	emp_no, 
-	dept, 
-	salary, 
-	-- NTILE(4) OVER(PARTITION BY dept ORDER BY salary) AS ordered_ntile
-	FIRST_VALUE(emp_no) OVER(PARTITION BY dept ORDER BY salary) AS emp_no
-FROM employees;
+-- SELECT 
+-- 	emp_no, 
+-- 	dept, 
+-- 	salary, 
+-- 	-- NTILE(4) OVER(PARTITION BY dept ORDER BY salary) AS ordered_ntile
+-- 	FIRST_VALUE(emp_no) OVER(PARTITION BY dept ORDER BY salary) AS emp_no
+-- FROM employees;
+
+-- SELECT emp_no, RANK() OVER(ORDER BY salary) FROM employees;
+-- SELECT emp_no, dept, salary, salary - LAG(salary) OVER(ORDER BY salary) FROM employees;
+-- SELECT emp_no, dept, salary, LAG(salary, 2) OVER(ORDER BY salary) FROM employees;
+
